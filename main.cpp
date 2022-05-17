@@ -3,7 +3,7 @@
 using namespace std;
 void TestCC()
 {
-    ComplexConstructor();
+    /*ComplexConstructor();
 	puts("");
     ComplexConstructor(2, 3.5);
 	puts("");
@@ -40,7 +40,11 @@ void TestCC()
     NumberAndValueType3();
 	puts("");
     ValueTypeAndValueType();
-	puts("");
+	puts("");*/
+//	MatrixContructor();
+//	puts("");
+//	MatrixAndMatrix();
+//	NumberAndMatrix();
 }
 int main()
 {

@@ -354,7 +354,7 @@ int Matrix::GetisSparseMatrix() const
 }
 int Matrix::GetTotalSize() const //这个是获得总的大小
 {
-    return MatrixValue.size();
+    return row * col;
 }
 ValueType Matrix::GetValue(int position) const //这个是获得指定位置的值
 {
@@ -385,7 +385,6 @@ void Matrix::Setrow(int a)
 {
     row = a;
 }
-
 void Matrix::SetType(int value)
 {
     type = value;
@@ -544,7 +543,7 @@ Matrix operator/(const Matrix &matrix, const CustomType Mul) {}
 //矩阵基本运算
 Matrix operator+(const Matrix &a, const Matrix &b)
 {
-    if (a.GetSize() != b.GetSize())
+    if (CheckSame(a, b))
     {
         throw("Size not Same Error!");
     }
@@ -559,7 +558,7 @@ Matrix operator+(const Matrix &a, const Matrix &b)
 }
 Matrix operator-(const Matrix &a, const Matrix &b)
 {
-    if (a.GetSize() != b.GetSize())
+	if (CheckSame(a, b))
     {
         throw("Size not Same Error!");
     }
@@ -574,7 +573,7 @@ Matrix operator-(const Matrix &a, const Matrix &b)
 }
 Matrix operator*(const Matrix &a, const Matrix &b)
 {
-    if (a.GetCol() != b.GetRow())
+    if (CheckMultiply(a, b))
     {
         throw("Size not Same Error!");
     }

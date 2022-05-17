@@ -3,6 +3,8 @@
 
 using namespace std;
 
+//---------Complex----------------
+
 void show(Complex a)
 {
     printf("%.4lf + %.4lfi\n", a.GetReal(), a.GetImage());
@@ -59,6 +61,9 @@ void ComplexDiv()
     Complex c = a / b;
     show(c); // (11 / 25, 2 / 25)
 }
+
+
+//-----------ValueType---------------
 
 void show(ValueType a)
 {
@@ -202,4 +207,111 @@ void ValueTypeAndValueType()
     show(b - c);
     show(b * c);
     show(b / c);
+}
+
+//-----------Matrix------------
+
+void show(Matrix a)
+{
+    printf("type = %d ", a.GetType());
+    printf("row = %d ", a.GetRow());
+    printf("col = %d\n", a.GetCol());
+    if(a.GetisSparseMatrix())
+    {
+        vector <PII> position = a.GetSparseMatrix();
+		vector <ValueType> Value = a.GetMatrixValue();
+		for(int i = 0; i < a.GetElementNum(); i++)
+		{
+			cout << position[i].fir << ' ' << position[i].sec << ' ';
+			ValueType value = Value[i];
+			if(value.GetType() == 1)
+				cout << value.GetLongLongValue() << ' ';
+			else if(value.GetType() == 2)
+				printf("%.4lf ", value.GetDoubleValue());
+			else
+				printf("%.4lf + %.4lfi ", value.GetComplexValue().GetReal(), value.GetComplexValue().GetImage());
+			puts("");
+		}
+        return;
+    }
+    for(int i = 1; i <= a.GetRow(); i++)
+    {
+        for(int j = 1; j <= a.GetCol(); j++)
+        {
+            ValueType value = a.GetValue(i, j);
+            if(value.GetType() == 1)
+                cout << value.GetLongLongValue() << ' ';
+            else if(value.GetType() == 2)
+                printf("%.4lf ", value.GetDoubleValue());
+            else
+                printf("%.4lf + %.4lfi ", value.GetComplexValue().GetReal(), value.GetComplexValue().GetImage());
+        }
+        puts("");
+    }
+}
+
+void MatrixContructor()
+{
+    Matrix a = Matrix();
+    show(a);
+    puts("");
+
+    Matrix b = Matrix(3, 4, 3);
+    show(b);
+    puts("");
+
+	ValueType c = ValueType(3);
+	c.SetComplexValue(Complex(2.2, 3.3));
+	b.SetValue(2, c);
+	b.SetValue(3, 3, c);
+	show(b);
+
+}
+
+void MatrixAndMatrix()
+{
+	Matrix a = Matrix(3, 3, 1);
+	ValueType identity = ValueType();
+	identity.SetLongLongValue(1);
+	for(int i = 1; i <= 3; i++)
+		a.SetValue(i, i, identity);
+
+	Matrix b = Matrix(3, 3, 2);
+	ValueType tmp = ValueType(2);
+	for(int i = 0; i < 9; i++)
+	{
+		tmp.SetDoubleValue((db)i);
+		b.SetValue(i, tmp);
+	}
+
+	show(a);
+	puts("");
+	show(b);
+	puts("");
+	show(a + b);
+	puts("");
+	show(a - b);
+	puts("");
+	show(a * b);
+	puts("");
+
+}
+
+void NumberAndMatrix()
+{
+	Matrix b = Matrix(3, 3, 2);
+	ValueType tmp = ValueType(2);
+	for(int i = 0; i < 9; i++)
+	{
+		tmp.SetDoubleValue((db)i);
+		b.SetValue(i, tmp);
+	}
+
+	show((ll)3 * b);
+	puts("");
+	show(b * (db)3);
+	puts("");
+	show(b * Complex(2.0, 3.1));
+	puts("");
+	show((b * Complex(3.0, 3)) / (db)3);
 }
